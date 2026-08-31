@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>The Wedding of Gilbert Byron & Priscilla Francesca</title>
+<title>The Wedding of Gilbert Byron &amp; Priscilla Francesca</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600;1,700;1,800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -34,6 +34,17 @@
     font-weight: 300;
     line-height: 1.6;
     overflow-x: hidden;
+  }
+
+  /* ---------- Global Fixed Background Photo ---------- */
+  .hero-bg-photo {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image: url('https://drive.google.com/thumbnail?id=11bGxpulYnihEhIUFcv-IrhUh31racH0s&sz=w1600');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
   }
 
   h1, h2, h3, .display {
@@ -108,14 +119,6 @@
     overflow: hidden;
   }
 
-  .hero-bg-photo {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-image: url('https://drive.google.com/thumbnail?id=11bGxpulYnihEhIUFcv-IrhUh31racH0s&sz=w1600');
-    background-size: cover;
-    background-position: center;
-  }
   .hero-bg-overlay {
     position: absolute;
     inset: 0;
@@ -151,7 +154,7 @@
     transform: rotate(162deg);
   }
 
-  .hero > *:not(.hero-bg-photo):not(.hero-bg-overlay) {
+  .hero > *:not(.hero-bg-overlay) {
     position: relative;
     z-index: 1;
   }
@@ -223,7 +226,7 @@
 
   /* ---------- Verse band ---------- */
   .verse-band {
-    background: linear-gradient(180deg, var(--sage) 0%, #C3D4BA 100%);
+    background: linear-gradient(180deg, rgba(169, 191, 160, 0.95) 0%, rgba(195, 212, 186, 0.95) 100%);
     padding: clamp(3.5rem, 9vw, 6rem) 1.5rem;
     text-align: center;
   }
@@ -684,13 +687,13 @@
 </head>
 <body>
 
+  <!-- ============== FIXED BACKGROUND IMAGE ============== -->
+  <div class="hero-bg-photo" aria-hidden="true"></div>
 
   <!-- ============== INVITE GATE ============== -->
-  <!-- Guests tap this to enter — the tap is what's allowed to start the music,
-       since browsers block audio autoplay without a real user gesture. -->
   <div class="invite-gate" id="inviteGate">
     <div class="gate-photo">
-      <img src="https://drive.google.com/thumbnail?id=11bGxpulYnihEhIUFcv-IrhUh31racH0s&sz=w1000" alt="Gilbert Byron and Priscilla Francesca">
+      <img src="https://drive.google.com/thumbnail?id=11bGxpulYnihEhIUFcv-IrhUh31racH0s&amp;sz=w1000" alt="Gilbert Byron and Priscilla Francesca">
     </div>
     <div class="eyebrow">You're Invited</div>
     <div class="gate-names">Gilbert Byron &amp; Priscilla Francesca</div>
@@ -699,7 +702,6 @@
 
   <!-- ============== HERO ============== -->
   <section class="hero">
-    <div class="hero-bg-photo" aria-hidden="true"></div>
     <div class="hero-bg-overlay" aria-hidden="true">
       <svg class="hero-bg-vine top-left" viewBox="0 0 120 40"><path d="M4 20 C30 4, 40 36, 70 18 C90 6, 100 30, 116 20"/><path class="leaf" d="M30 12 C34 8 38 10 36 16"/><path class="leaf" d="M60 24 C64 20 68 22 66 28"/><path class="leaf" d="M90 14 C94 10 98 12 96 18"/></svg>
       <svg class="hero-bg-vine bottom-right" viewBox="0 0 120 40"><path d="M4 20 C30 4, 40 36, 70 18 C90 6, 100 30, 116 20"/><path class="leaf" d="M30 12 C34 8 38 10 36 16"/><path class="leaf" d="M60 24 C64 20 68 22 66 28"/><path class="leaf" d="M90 14 C94 10 98 12 96 18"/></svg>
@@ -719,7 +721,7 @@
       <div class="unit"><span class="num" id="cd-secs">00</span><span class="lbl">Secs</span></div>
     </div>
 
-    <div class="scroll-cue" style="margin-top: 75px;">Scroll to view invite ↓</div>
+    <div class="scroll-cue" style="margin-top: 75px;">Scroll to view invite &darr;</div>
   </section>
 
   <!-- ============== VERSE ============== -->
@@ -727,7 +729,7 @@
     <div class="verse-flourish">
       <svg viewBox="0 0 120 40" aria-hidden="true"><path d="M4 20 C30 4, 40 36, 70 18 C90 6, 100 30, 116 20"/><path class="leaf" d="M30 12 C34 8 38 10 36 16"/><path class="leaf" d="M60 24 C64 20 68 22 66 28"/><path class="leaf" d="M90 14 C94 10 98 12 96 18"/></svg>
     </div>
-    <blockquote>
+    <blockquote style="margin: 0 auto;">
       &ldquo;So they are no longer two, but one. Therefore what God has joined together, let man not separate.&rdquo;
     </blockquote>
     <cite>Matthew 19:6</cite>
@@ -763,7 +765,7 @@
           <span class="time">10:00 AM</span>
         </div>
         <div class="venue">
-          Church of Our Lady of Lourdes ·
+          Church of Our Lady of Lourdes &middot;
           <a href="https://maps.app.goo.gl/cV7tBem5RoTR8Bws7" target="_blank" rel="noopener">Get Directions</a>
         </div>
         <div class="map-wrap">
@@ -789,7 +791,7 @@
           <span class="time">12:30 PM</span>
         </div>
         <div class="venue">
-          Dewan Tengku Zara, Shah Alam ·
+          Dewan Tengku Zara, Shah Alam &middot;
           <a href="https://maps.app.goo.gl/GgJuspuDard9BHoS6" target="_blank" rel="noopener">Get Directions</a>
         </div>
         <div class="map-wrap">
@@ -823,13 +825,12 @@
       <h2>Dress Code</h2>
     </div>
     <p class="dress-code-main">Suits &amp; Dresses</p>
-    <p class="dress-code-sub">In our wedding colours — pastel pink &amp; sage green</p>
+    <p class="dress-code-sub">In our wedding colours &mdash; pastel pink &amp; sage green</p>
     <div class="dress-code-swatches" aria-hidden="true">
       <span class="swatch swatch-pink"></span>
       <span class="swatch swatch-green"></span>
     </div>
   </section>
-
 
   <!-- ============== WISHES ============== -->
   <section id="wishes">
@@ -841,11 +842,6 @@
       <h2>Leave Us a Wish</h2>
     </div>
 
-    <!--
-      This form posts straight to your Apps Script deployment, targeting a
-      hidden iframe so the page never navigates away. Replace the action
-      URL below with your own deployment's exec URL (see README.md).
-    -->
     <form class="wishes-form reveal" id="wishForm" method="POST"
           action="https://script.google.com/macros/s/AKfycbyTK6KhbLVSRhORGGUSsxjd5UdlzxO1jPwIzfulMU2OqEWX-Ed-1ls3odk5yPqPL7h5BQ/exec" target="hiddenWishFrame">
       <input type="text" id="wishName" name="name" placeholder="Your name" autocomplete="name" required maxlength="80" />
@@ -867,14 +863,8 @@
   </footer>
 
   <!-- ============== MUSIC TOGGLE ============== -->
-  <!--
-    To add background music: upload an MP3 to Google Drive, set sharing to
-    "Anyone with the link", copy the file ID from the share link, and set
-    the src below to:  https://drive.google.com/uc?export=download&id=YOUR_FILE_ID
-    (or host the MP3 anywhere public and paste that URL instead).
-  -->
   <audio id="bgMusic" loop preload="none">
-    <source src="https://www.dropbox.com/scl/fi/jqlrq46i3bt761k3drf7o/Canon-in-D-Pachelbel-s-Canon-Cello-Piano-BEST-WEDDING-VERSION.mp3?rlkey=9prh8whamnzxut32abgibmjf3&st=qdgjc89y&raw=1" type="audio/mpeg">
+    <source src="https://www.dropbox.com/scl/fi/jqlrq46i3bt761k3drf7o/Canon-in-D-Pachelbel-s-Canon-Cello-Piano-BEST-WEDDING-VERSION.mp3?rlkey=9prh8whamnzxut32abgibmjf3&amp;st=qdgjc89y&amp;raw=1" type="audio/mpeg">
   </audio>
   <button class="music-toggle paused" id="musicToggle" aria-pressed="false" aria-label="Play background music">
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -936,8 +926,7 @@
       musicBtn.setAttribute('aria-pressed', 'true');
       musicBtn.setAttribute('aria-label', 'Pause background music');
     }).catch(function () {
-      // Playback blocked or no source set yet — the toggle button still
-      // lets the guest start it manually, so fail silently here.
+      // Audio autoplay fallback
     });
   }
 
@@ -954,8 +943,6 @@
   });
 
   // ---------- Invite gate ----------
-  // Tapping the gate is a real user gesture, so it's allowed to start audio —
-  // this is what makes the music "autoplay" the moment guests open the invite.
   var inviteGate = document.getElementById('inviteGate');
   inviteGate.addEventListener('click', function () {
     inviteGate.classList.add('hidden');
@@ -963,146 +950,6 @@
     setTimeout(function () {
       inviteGate.remove();
     }, 1000);
-  });
-
-  // ---------- Gallery slideshow ----------
-  (function () {
-    var track = document.getElementById('slidesTrack');
-    var slides = track ? Array.prototype.slice.call(track.querySelectorAll('.slide')) : [];
-    var dotsWrap = document.getElementById('slideDots');
-    var prevBtn = document.getElementById('slidePrev');
-    var nextBtn = document.getElementById('slideNext');
-    if (!slides.length) return;
-
-    var current = 0;
-    var autoplayMs = 4500;
-    var timer = null;
-
-    // Build one dot per slide
-    var dots = slides.map(function (_, i) {
-      var dot = document.createElement('button');
-      dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Go to photo ' + (i + 1));
-      dot.addEventListener('click', function () {
-        goTo(i);
-        restartAutoplay();
-      });
-      dotsWrap.appendChild(dot);
-      return dot;
-    });
-
-    function goTo(index) {
-      slides[current].classList.remove('active');
-      dots[current].classList.remove('active');
-      current = (index + slides.length) % slides.length;
-      slides[current].classList.add('active');
-      dots[current].classList.add('active');
-    }
-
-    function next() { goTo(current + 1); }
-    function prev() { goTo(current - 1); }
-
-    function startAutoplay() {
-      timer = setInterval(next, autoplayMs);
-    }
-    function restartAutoplay() {
-      clearInterval(timer);
-      startAutoplay();
-    }
-
-    prevBtn.addEventListener('click', function () { prev(); restartAutoplay(); });
-    nextBtn.addEventListener('click', function () { next(); restartAutoplay(); });
-
-    // Basic touch swipe support
-    var touchStartX = null;
-    track.addEventListener('touchstart', function (e) {
-      touchStartX = e.touches[0].clientX;
-    }, { passive: true });
-    track.addEventListener('touchend', function (e) {
-      if (touchStartX === null) return;
-      var dx = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(dx) > 40) {
-        dx < 0 ? next() : prev();
-        restartAutoplay();
-      }
-      touchStartX = null;
-    }, { passive: true });
-
-    startAutoplay();
-  })();
-
-  // ---------- Wishes wall ----------
-  // Reads use JSONP (a <script> tag pointed at the Apps Script exec URL) and
-  // writes use a plain form POST to a hidden iframe. Neither approach is
-  // subject to CORS, so this works even though this page is hosted on a
-  // different domain than the Apps Script backend — and guests never
-  // navigate to script.google.com directly, which is what breaks on mobile.
-  var wishForm = document.getElementById('wishForm');
-  var wishStatus = document.getElementById('wishStatus');
-  var wishSubmit = document.getElementById('wishSubmit');
-  var wishesList = document.getElementById('wishesList');
-  var EXEC_URL = wishForm.getAttribute('action');
-  var URL_NOT_SET = !EXEC_URL || EXEC_URL.indexOf('PASTE_YOUR_DEPLOYMENT_EXEC_URL_HERE') !== -1;
-
-  function escapeHtml(str) {
-    var div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
-
-  function renderWishes(wishes) {
-    if (!wishes || wishes.length === 0) {
-      wishesList.innerHTML = '<p class="wishes-empty">Be the first to leave a wish for the couple &hearts;</p>';
-      return;
-    }
-    wishesList.innerHTML = wishes.map(function (w) {
-      return '<div class="wish-card">' +
-        '<div class="msg">&ldquo;' + escapeHtml(w.message) + '&rdquo;</div>' +
-        '<div class="from">&mdash; ' + escapeHtml(w.name) + '</div>' +
-        '</div>';
-    }).join('');
-  }
-
-  function loadWishes() {
-    if (URL_NOT_SET) {
-      wishesList.innerHTML = '<p class="wishes-empty">Wishes will appear here once the Apps Script URL is set up (see README.md).</p>';
-      return;
-    }
-    var callbackName = 'wishesCallback_' + Date.now();
-    var script = document.createElement('script');
-
-    window[callbackName] = function (data) {
-      renderWishes(data);
-      delete window[callbackName];
-      script.remove();
-    };
-    script.onerror = function () {
-      wishesList.innerHTML = '<p class="wishes-empty">Couldn\'t load wishes right now — please refresh the page.</p>';
-      delete window[callbackName];
-    };
-    script.src = EXEC_URL + '?wishes=1&callback=' + callbackName;
-    document.body.appendChild(script);
-  }
-  loadWishes();
-
-  wishForm.addEventListener('submit', function () {
-    // No preventDefault: the form submits normally to the hidden iframe.
-    if (URL_NOT_SET) {
-      event.preventDefault();
-      wishStatus.textContent = 'Wishes can be sent once the Apps Script URL is set up.';
-      return;
-    }
-    wishSubmit.disabled = true;
-    wishStatus.textContent = 'Sending...';
-
-    // The hidden iframe's response isn't readable cross-origin, so we
-    // optimistically confirm after a short delay and refresh the list.
-    setTimeout(function () {
-      wishStatus.textContent = 'Thank you for your wishes!';
-      wishForm.reset();
-      wishSubmit.disabled = false;
-      loadWishes();
-    }, 1500);
   });
 </script>
 </body>
