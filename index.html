@@ -104,11 +104,56 @@
     justify-content: center;
     text-align: center;
     padding: 2rem 1.5rem;
-    background:
-      radial-gradient(circle at 15% 10%, var(--blush-soft) 0%, transparent 45%),
-      radial-gradient(circle at 85% 90%, var(--sage) 0%, transparent 40%),
-      var(--ivory);
     position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-photo {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url('https://drive.google.com/thumbnail?id=11bGxpulYnihEhIUFcv-IrhUh31racH0s&sz=w1600');
+    background-size: cover;
+    background-position: center;
+  }
+  .hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(243,214,220,0.35) 0%, transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(169,191,160,0.3) 0%, transparent 40%),
+      linear-gradient(180deg, rgba(251,246,241,0.92) 0%, rgba(251,246,241,0.7) 30%, rgba(251,246,241,0.7) 70%, rgba(251,246,241,0.92) 100%);
+  }
+  .hero-bg-vine {
+    position: absolute;
+    width: clamp(140px, 22vw, 220px);
+    fill: none;
+    stroke: var(--sage-deep);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    opacity: 0.35;
+    z-index: 1;
+  }
+  .hero-bg-vine .leaf {
+    fill: var(--sage-deep);
+    stroke: none;
+  }
+  .hero-bg-vine.top-left {
+    top: 8%;
+    left: -4%;
+    transform: rotate(-18deg);
+  }
+  .hero-bg-vine.bottom-right {
+    bottom: 10%;
+    right: -4%;
+    transform: rotate(162deg);
+  }
+
+  .hero > *:not(.hero-bg-photo):not(.hero-bg-overlay) {
+    position: relative;
+    z-index: 1;
   }
 
   .hero .eyebrow { margin-bottom: 1.2rem; }
@@ -373,6 +418,113 @@
   .rsvp-btn:hover { background: var(--rose); transform: translateY(-2px); }
   .rsvp-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 
+  /* ---------- Dress code ---------- */
+  .dress-code {
+    text-align: center;
+  }
+  .dress-code-main {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+    color: var(--rose-deep);
+    margin: 0.4rem 0 0.3rem;
+  }
+  .dress-code-sub {
+    color: var(--ink-soft);
+    margin: 0 0 1.4rem;
+  }
+  .dress-code-swatches {
+    display: flex;
+    justify-content: center;
+    gap: 0.9rem;
+  }
+  .swatch {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    border: 2px solid #fff;
+  }
+  .swatch-pink { background: var(--blush); }
+  .swatch-green { background: var(--sage); }
+
+  /* ---------- Gallery slideshow ---------- */
+  .slideshow {
+    position: relative;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .slides-track {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease;
+  }
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .slide .photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    aspect-ratio: auto;
+    margin: 0;
+  }
+  .slide-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.85);
+    color: var(--rose-deep);
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+  }
+  .slide-arrow:hover { background: #fff; }
+  .slide-arrow:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .slide-arrow.prev { left: 12px; }
+  .slide-arrow.next { right: 12px; }
+  .slide-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-top: 1.1rem;
+  }
+  .slide-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--blush);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .slide-dot.active {
+    background: var(--rose-deep);
+    transform: scale(1.25);
+  }
+  .slide-dot:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
   /* ---------- Wishes wall ---------- */
   .wishes-form {
     display: grid;
@@ -485,14 +637,22 @@
     opacity: 0;
     pointer-events: none;
   }
-  .invite-gate .gate-ring {
-    width: 64px;
-    margin-bottom: 1.6rem;
+  .invite-gate .gate-photo {
+    width: clamp(180px, 48vw, 250px);
+    aspect-ratio: 3 / 4;
+    margin: 0 auto 1.4rem;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 4px solid #fff;
+    outline: 1px solid var(--gold);
+    outline-offset: -1px;
+    box-shadow: 0 14px 30px rgba(90, 50, 65, 0.28);
   }
-  .invite-gate .gate-ring svg circle {
-    stroke: var(--gold);
-    stroke-width: 1.4;
-    fill: none;
+  .invite-gate .gate-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   .invite-gate .gate-names {
     font-family: 'Playfair Display', serif;
@@ -522,7 +682,6 @@
     .invite-gate .gate-cta { animation: none; }
   }
 
-  /* ---------- Music toggle ---------- */
   .music-toggle {
     position: fixed;
     bottom: 1.4rem;
@@ -560,12 +719,13 @@
 </head>
 <body>
 
+
   <!-- ============== INVITE GATE ============== -->
   <!-- Guests tap this to enter — the tap is what's allowed to start the music,
        since browsers block audio autoplay without a real user gesture. -->
   <div class="invite-gate" id="inviteGate">
-    <div class="gate-ring">
-      <svg viewBox="0 0 84 48"><circle cx="30" cy="24" r="20"/><circle cx="54" cy="24" r="20"/></svg>
+    <div class="gate-photo">
+      <img src="https://drive.google.com/thumbnail?id=11bGxpulYnihEhIUFcv-IrhUh31racH0s&sz=w1000" alt="Gilbert Byron and Priscilla Francesca">
     </div>
     <div class="eyebrow">You're Invited</div>
     <div class="gate-names">Gilbert Byron &amp; Priscilla Francesca</div>
@@ -574,6 +734,11 @@
 
   <!-- ============== HERO ============== -->
   <section class="hero">
+    <div class="hero-bg-photo" aria-hidden="true"></div>
+    <div class="hero-bg-overlay" aria-hidden="true">
+      <svg class="hero-bg-vine top-left" viewBox="0 0 120 40"><path d="M4 20 C30 4, 40 36, 70 18 C90 6, 100 30, 116 20"/><path class="leaf" d="M30 12 C34 8 38 10 36 16"/><path class="leaf" d="M60 24 C64 20 68 22 66 28"/><path class="leaf" d="M90 14 C94 10 98 12 96 18"/></svg>
+      <svg class="hero-bg-vine bottom-right" viewBox="0 0 120 40"><path d="M4 20 C30 4, 40 36, 70 18 C90 6, 100 30, 116 20"/><path class="leaf" d="M30 12 C34 8 38 10 36 16"/><path class="leaf" d="M60 24 C64 20 68 22 66 28"/><path class="leaf" d="M90 14 C94 10 98 12 96 18"/></svg>
+    </div>
     <div class="eyebrow">Together with their families</div>
     <h1 class="names">
       Gilbert Byron
@@ -670,26 +835,6 @@
     </div>
   </section>
 
-  <!-- ============== GALLERY ============== -->
-  <section id="gallery">
-    <div class="ring-divider reveal">
-      <svg viewBox="0 0 84 48"><circle class="r1" cx="30" cy="24" r="20"/><circle class="r2" cx="54" cy="24" r="20"/></svg>
-    </div>
-    <div class="section-head reveal">
-      <div class="eyebrow">A Few Favourites</div>
-      <h2>Our Story in Pictures</h2>
-    </div>
-    <div class="gallery reveal">
-      <!-- Replace each div below with <div class="photo"><img src="YOUR_IMAGE_URL" alt="..."></div> -->
-      <div class="photo">Photo 1</div>
-      <div class="photo">Photo 2</div>
-      <div class="photo">Photo 3</div>
-      <div class="photo">Photo 4</div>
-      <div class="photo">Photo 5</div>
-      <div class="photo">Photo 6</div>
-    </div>
-  </section>
-
   <!-- ============== RSVP ============== -->
   <section id="rsvp" class="rsvp reveal">
     <div class="ring-divider reveal">
@@ -701,6 +846,57 @@
     </div>
     <p>We'd be so grateful if you could let us know you're coming. Please RSVP by 15th June 2027 so we can prepare a seat for you.</p>
     <a class="rsvp-btn" href="https://forms.gle/JRz2fMXBqfb3hg6w8" target="_blank" rel="noopener">RSVP Now</a>
+  </section>
+
+  <!-- ============== DRESS CODE ============== -->
+  <section id="dress-code" class="dress-code reveal">
+    <div class="ring-divider reveal">
+      <svg viewBox="0 0 84 48"><circle class="r1" cx="30" cy="24" r="20"/><circle class="r2" cx="54" cy="24" r="20"/></svg>
+    </div>
+    <div class="section-head">
+      <div class="eyebrow">What to Wear</div>
+      <h2>Dress Code</h2>
+    </div>
+    <p class="dress-code-main">Suits &amp; Dresses</p>
+    <p class="dress-code-sub">In our wedding colours — pastel pink &amp; sage green</p>
+    <div class="dress-code-swatches" aria-hidden="true">
+      <span class="swatch swatch-pink"></span>
+      <span class="swatch swatch-green"></span>
+    </div>
+  </section>
+
+  <!-- ============== GALLERY ============== -->
+  <section id="gallery">
+    <div class="ring-divider reveal">
+      <svg viewBox="0 0 84 48"><circle class="r1" cx="30" cy="24" r="20"/><circle class="r2" cx="54" cy="24" r="20"/></svg>
+    </div>
+    <div class="section-head reveal">
+      <div class="eyebrow">A Few Favourites</div>
+      <h2>Our Story in Pictures</h2>
+    </div>
+
+    <!--
+      Slideshow: replace each .slide's placeholder text with
+      <img src="YOUR_IMAGE_URL" alt="..."> the same way as before.
+      Add or remove <div class="slide">...</div> blocks freely — the
+      JS below picks up however many slides are here and builds the
+      dots automatically.
+    -->
+    <div class="slideshow reveal" id="gallerySlideshow">
+      <div class="slides-track" id="slidesTrack">
+        <div class="slide active"><div class="photo">Photo 1</div></div>
+        <div class="slide"><div class="photo">Photo 2</div></div>
+        <div class="slide"><div class="photo">Photo 3</div></div>
+        <div class="slide"><div class="photo">Photo 4</div></div>
+        <div class="slide"><div class="photo">Photo 5</div></div>
+        <div class="slide"><div class="photo">Photo 6</div></div>
+      </div>
+
+      <button class="slide-arrow prev" id="slidePrev" aria-label="Previous photo">&#10094;</button>
+      <button class="slide-arrow next" id="slideNext" aria-label="Next photo">&#10095;</button>
+
+      <div class="slide-dots" id="slideDots"></div>
+    </div>
   </section>
 
   <!-- ============== WISHES ============== -->
@@ -836,6 +1032,72 @@
       inviteGate.remove();
     }, 1000);
   });
+
+  // ---------- Gallery slideshow ----------
+  (function () {
+    var track = document.getElementById('slidesTrack');
+    var slides = track ? Array.prototype.slice.call(track.querySelectorAll('.slide')) : [];
+    var dotsWrap = document.getElementById('slideDots');
+    var prevBtn = document.getElementById('slidePrev');
+    var nextBtn = document.getElementById('slideNext');
+    if (!slides.length) return;
+
+    var current = 0;
+    var autoplayMs = 4500;
+    var timer = null;
+
+    // Build one dot per slide
+    var dots = slides.map(function (_, i) {
+      var dot = document.createElement('button');
+      dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to photo ' + (i + 1));
+      dot.addEventListener('click', function () {
+        goTo(i);
+        restartAutoplay();
+      });
+      dotsWrap.appendChild(dot);
+      return dot;
+    });
+
+    function goTo(index) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function startAutoplay() {
+      timer = setInterval(next, autoplayMs);
+    }
+    function restartAutoplay() {
+      clearInterval(timer);
+      startAutoplay();
+    }
+
+    prevBtn.addEventListener('click', function () { prev(); restartAutoplay(); });
+    nextBtn.addEventListener('click', function () { next(); restartAutoplay(); });
+
+    // Basic touch swipe support
+    var touchStartX = null;
+    track.addEventListener('touchstart', function (e) {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    track.addEventListener('touchend', function (e) {
+      if (touchStartX === null) return;
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) {
+        dx < 0 ? next() : prev();
+        restartAutoplay();
+      }
+      touchStartX = null;
+    }, { passive: true });
+
+    startAutoplay();
+  })();
 
   // ---------- Wishes wall ----------
   // Reads use JSONP (a <script> tag pointed at the Apps Script exec URL) and
