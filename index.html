@@ -852,6 +852,157 @@
       inviteGate.remove();
     }, 1000);
   });
+    // ============================================================
+  // WISHES WALL
+  // ============================================================
+
+  var WISHES_API =
+    'https://script.google.com/macros/s/AKfycbyTK6KhbLVSRhORGGUSsxjd5UdlzxO1jPwIzfulMU2OqEWX-Ed-1ls3odk5yPqPL7h5BQ/exec';
+
+  var wishForm = document.getElementById('wishForm');
+  var wishName = document.getElementById('wishName');
+  var wishMessage = document.getElementById('wishMessage');
+  var wishSubmit = document.getElementById('wishSubmit');
+  var wishStatus = document.getElementById('wishStatus');
+  var wishesList = document.getElementById('wishesList');
+  var wishFrame = document.querySelector('iframe[name="hiddenWishFrame"]');
+
+  var wishSubmitting = false;
+
+
+  // Escape text before displaying it on the page
+  // This prevents HTML from being inserted into the wishes wall.
+  function escapeWishText(text) {
+    return String(text || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+
+  // Display wishes on the website
+  function renderWishes(wishes) {
+
+    if (!wishes || wishes.length === 0) {
+      wishesList.innerHTML =
+        '<p class="wishes-empty">Be the first to leave us a wish! ♡</p>';
+      return;
+    }
+
+    wishesList.innerHTML = wishes.map(function (wish) {
+
+      var name = escapeWishText(wish.name);
+      var message = escapeWishText(wish.message);
+
+      return `
+        <div class="wish-card">
+          <div class="msg">${message}</div>
+          <div class="from">— ${name}</div>
+        </div>
+      `;
+
+    }).join('');
+  }
+
+
+  // Load wishes from Google Apps Script using JSONP
+  function loadWishes() {
+
+    wishesList.innerHTML =
+      '<p class="wishes-empty">Loading wishes...</p>';
+
+    var callbackName =
+      'receiveWishes_' + Date.now();
+
+    window[callbackName] = function (data) {
+
+      try {
+        renderWishes(data);
+      } catch (error) {
+        console.error('Error displaying wishes:', error);
+
+        wishesList.innerHTML =
+          '<p class="wishes-empty">Unable to load wishes right now.</p>';
+      }
+
+      // Remove the temporary callback
+      delete window[callbackName];
+
+      // Remove the temporary script
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+
+    var script = document.createElement('script');
+
+    script.src =
+      WISHES_API +
+      '?wishes=1' +
+      '&callback=' + encodeURIComponent(callbackName) +
+      '&_=' + Date.now();
+
+    script.onerror = function () {
+
+      console.error('Unable to connect to wishes API.');
+
+      wishesList.innerHTML =
+        '<p class="wishes-empty">Unable to load wishes right now.</p>';
+
+      delete window[callbackName];
+
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+
+    document.body.appendChild(script);
+  }
+
+
+  // When the guest submits a wish
+  wishForm.addEventListener('submit', function () {
+
+    wishSubmitting = true;
+
+    wishSubmit.disabled = true;
+    wishSubmit.textContent = 'Sending...';
+    wishStatus.textContent = 'Sending your wishes ♡';
+
+  });
+
+
+  // The form submits into the hidden iframe.
+  // Once that finishes, reload the wishes from Google Sheets.
+  wishFrame.addEventListener('load', function () {
+
+    if (!wishSubmitting) return;
+
+    setTimeout(function () {
+
+      wishSubmitting = false;
+
+      wishSubmit.disabled = false;
+      wishSubmit.textContent = 'Send Wishes';
+
+      wishStatus.textContent =
+        'Thank you for your beautiful wishes! ♡';
+
+      wishForm.reset();
+
+      // Reload wishes so the newly submitted wish appears
+      loadWishes();
+
+    }, 600);
+
+  });
+
+
+  // Load existing wishes when the page opens
+  loadWishes();
+  
 </script>
 </body>
 </html>
